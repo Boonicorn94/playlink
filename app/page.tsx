@@ -16,7 +16,7 @@ const [tab,setTab]=useState("Discover"),[items,setItems]=useState(initial),[sele
 const notify=(s:string)=>{setToast(s);setTimeout(()=>setToast(""),2500)};
 const go=(s:string)=>{setScreen(s);setSelected(null)};
 const back=()=>{setScreen("");setSelected(null)};
-const nav=[["Discover",House],["Play",Play],["Host",Plus],["Connect",Users],["Profile",UserRound]];
+const nav:[string, any][]=[["Discover",House],["Play",Play],["Host",Plus],["Connect",Users],["Profile",UserRound]];
 const cards=items.filter(a=>(a.title+" "+a.area+" "+a.category).toLowerCase().includes(query.toLowerCase()));
 const activityCard=(a:Activity)=><button className="event-card" key={a.id} onClick={()=>setSelected(a)}><div className={"event-photo "+a.image}><span className="photo-emoji">{a.emoji}</span><span className="photo-category">{a.category}</span><span className="photo-price">£{a.price}</span></div><div className="event-info"><b>{a.title}</b><small><MapPin size={12}/>{a.area} · {a.date}</small><div className="event-bottom"><span>{a.spots} of 16 spots filled</span><span className="tiny-avatars">● ● ●</span></div></div></button>;
 const create=()=>{if(!name.trim()||!area.trim()||!date.trim()){notify("Add an activity name, area and date.");return}const a:Activity={id:Date.now(),title:name,category:hostType,host:"You",area,date,price:Number(price)||0,spots:0,emoji:"✨",image:"pool",description:desc||"A new activity on PlayLink."};setItems([a,...items]);setName("");setDesc("");setArea("");setDate("");go("");setTab("Host");notify("Activity added to your preview.")};
